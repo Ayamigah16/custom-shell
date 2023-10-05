@@ -53,13 +53,13 @@ def main():
         
         # execute commands
         else:
-            suggestions = suggestion_comands(user_input)
-            if suggestions:
-                print("Suggestions: ")
-                for suggestion in suggestions:
-                    print(suggestion)
-            else:
-                execute_command(user_input)
+            # suggestions = suggestion_comands(user_input)
+            # if suggestions:
+            #     print("Suggestions: ")
+            #     for suggestion in suggestions:
+            #         print(suggestion)
+            # else:
+            execute_command(user_input)
 
 if __name__ == "__main__":
     main()
