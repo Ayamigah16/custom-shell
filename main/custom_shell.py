@@ -4,6 +4,11 @@ import difflib
 # data structure to store command history
 command_history = []
 
+# customization contents --> color
+prompt_prefix = "custom-prompt"
+prompt_color = "\033[1;32m" #default color: green
+
+
 # some shell commands
 example_commands = ['ls', 'cd', 'mkdir', 'rm', 'touch', 'cat', 'python', 'exit']
 
@@ -35,12 +40,41 @@ def suggestion_comands(partial_command):
     suggestions = difflib.get_close_matches(partial_command, example_commands)
     return suggestions
 
+def customize_prompt():
+    """
+    Allow the user to customize the prompt format and color.
+
+    Returns:
+        None
+    """
+    global prompt_prefix, prompt_color
+    prompt_prefix = input("Enter custom prompt prefix: ")
+    prompt_color = input("Enter custom prompt color (e.g., \033[1;32m for green): ")
+
+def display_help():
+    """
+    Display help and documentation for available commands.
+
+    Returns:
+        None
+    """
+    print("Available Commands:")
+    for cmd in example_commands:
+        print(cmd)
 
 def main():
     while True:
-        user_input = input("custom-shell: ")
-        if user_input.lower() == "exit":
+        user_input = input(f"{prompt_color}{prompt_prefix}> \033[0m")
+        if user_input.lower() == 'exit':
             break
+        elif user_input.lower() == 'customize':
+            customize_prompt()
+        elif user_input.lower() == 'help':
+            display_help()
+        elif user_input.lower() == 'history':
+            print("Command History:")
+            for idx, cmd in enumerate(command_history, start=1):
+                print(f"{idx}. {cmd}")
 
         # commands stack
         command_history.append(user_input)
